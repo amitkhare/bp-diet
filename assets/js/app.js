@@ -1,12 +1,18 @@
 // Main application logic
 class BPDietApp {
     constructor() {
+        this.currentBPType = null;
         this.elements = {
-            bpType: document.getElementById('bpType'),
-            timeSlot: document.getElementById('timeSlot'),
-            showDiet: document.getElementById('showDiet'),
-            dietContent: document.getElementById('dietContent'),
-            rulesContent: document.getElementById('rulesContent')
+            navItems: document.querySelectorAll('.nav-item'),
+            tabs: document.querySelectorAll('.tab-content'),
+            bpCards: document.querySelectorAll('.bp-card'),
+            timeSlots: document.getElementById('timeSlots'),
+            dietTitle: document.getElementById('dietTitle'),
+            guideContent: document.getElementById('guideContent'),
+            backBtn: document.getElementById('backBtn'),
+            modal: document.getElementById('dietModal'),
+            modalBody: document.getElementById('modalBody'),
+            modalClose: document.getElementById('modalClose')
         };
         
         this.init();
@@ -18,103 +24,123 @@ class BPDietApp {
     }
     
     attachEventListeners() {
-        this.elements.bpType.addEventListener('change', () => this.handleBPTypeChange());
-        this.elements.showDiet.addEventListener('click', () => this.showDiet());
+        // Bottom navigation
+        this.elements.navItems.forEach(item => {
+            item.addEventListener('click', () => this.switchTab(item.dataset.tab));
+        });
         
-        // Add keyboard support
-        this.elements.showDiet.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                this.showDiet();
-            }
+        // BP type selection
+        this.elements.bpCards.forEach(card => {
+            card.addEventListener('click', () => this.selectBPType(card.dataset.type));
+        });
+        
+        // Back button
+        this.elements.backBtn.addEventListener('click', () => this.switchTab('home'));
+        
+        // Modal close
+        this.elements.modalClose.addEventListener('click', () => this.closeModal());
+        this.elements.modal.addEventListener('click', (e) => {
+            if (e.target === this.elements.modal) this.closeModal();
         });
     }
     
-    handleBPTypeChange() {
-        const type = this.elements.bpType.value;
-        this.elements.timeSlot.innerHTML = '<option value="">-- समय चुनें --</option>';
-        
-        if (type && dietData[type]) {
-            this.populateTimeSlots(type);
-            this.elements.timeSlot.disabled = false;
-            this.elements.showDiet.disabled = false;
-            this.showRules(type);
-            this.saveState('bpType', type);
-        } else {
-            this.resetForm();
-        }
-    }
-    
-    populateTimeSlots(type) {
-        dietData[type].chart.forEach(item => {
-            const option = document.createElement('option');
-            option.value = item.time;
-            option.textContent = `${item.icon} ${item.time}`;
-            this.elements.timeSlot.appendChild(option);
+    switchTab(tabName) {
+        // Update navigation
+        this.elements.navItems.forEach(item => {
+            item.classList.toggle('active', item.dataset.tab === tabName);
         });
+        
+        // Update content
+        this.elements.tabs.forEach(tab => {
+            tab.classList.toggle('active', tab.id === `${tabName}Tab`);
+        });
+        
+        // Scroll to top
+        document.getElementById('contentArea').scrollTop = 0;
     }
     
-    showDiet() {
-        const type = this.elements.bpType.value;
-        const time = this.elements.timeSlot.value;
+    selectBPType(type) {
+        this.currentBPType = type;
         
-        if (!type || !time) return;
+        // Update UI
+        this.elements.bpCards.forEach(card => {
+            card.classList.toggle('selected', card.dataset.type === type);
+        });
         
-        const item = dietData[type].chart.find(i => i.time === time);
+        // Update diet tab
+        this.updateDietTab(type);
         
-        if (item) {
-            this.elements.dietContent.innerHTML = `
-                <h2>${item.icon} ${item.time}</h2>
-                <p><strong>सुझाए गए खाद्य विकल्प:</strong> ${item.food}</p>
-                <p><strong>यह कैसे मदद करता है:</strong> ${item.benefit}</p>
+        // Update guide tab
+        this.updateGuideTab(type);
+        
+        // Save state
+        localStorage.setItem('bpType', type);
+        
+        // Switch to diet tab
+        setTimeout(() => this.switchTab('diet'), 300);
+    }
+    
+    updateDietTab(type) {
+        const data = dietData[type];
+        const title = type === 'high' ? '🔴 हाई बीपी डाइट' : '🔵 लो बीपी डाइट';
+        
+        this.elements.dietTitle.textContent = title;
+        this.elements.timeSlots.innerHTML = '';
+        
+        data.chart.forEach(item => {
+            const card = document.createElement('button');
+            card.className = 'time-slot-card';
+            card.innerHTML = `
+                <div class="time-slot-header">
+                    <span class="time-slot-icon">${item.icon}</span>
+                    <span class="time-slot-time">${item.time}</span>
+                </div>
+                <div class="time-slot-food">${item.food}</div>
             `;
-            this.elements.dietContent.style.display = 'block';
-            
-            // Smooth scroll to diet content
-            this.elements.dietContent.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'nearest' 
-            });
-            
-            this.saveState('timeSlot', time);
-        }
+            card.addEventListener('click', () => this.showDietDetail(item));
+            this.elements.timeSlots.appendChild(card);
+        });
     }
     
-    showRules(type) {
-        if (dietData[type]) {
-            this.elements.rulesContent.innerHTML = dietData[type].rules;
-        }
+    updateGuideTab(type) {
+        const data = dietData[type];
+        this.elements.guideContent.innerHTML = data.rules;
     }
     
-    resetForm() {
-        this.elements.timeSlot.disabled = true;
-        this.elements.showDiet.disabled = true;
-        this.elements.dietContent.style.display = 'none';
-        this.elements.rulesContent.innerHTML = '';
-        localStorage.removeItem('bpDietApp');
+    showDietDetail(item) {
+        this.elements.modalBody.innerHTML = `
+            <div class="modal-header">
+                <span class="modal-icon">${item.icon}</span>
+                <h2 class="modal-title">${item.time}</h2>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label">सुझाए गए खाद्य विकल्प</div>
+                <div class="modal-text">${item.food}</div>
+            </div>
+            <div class="modal-section">
+                <div class="modal-label">यह कैसे मदद करता है</div>
+                <div class="modal-text">${item.benefit}</div>
+            </div>
+        `;
+        this.elements.modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
     }
     
-    saveState(key, value) {
-        const state = JSON.parse(localStorage.getItem('bpDietApp') || '{}');
-        state[key] = value;
-        localStorage.setItem('bpDietApp', JSON.stringify(state));
+    closeModal() {
+        this.elements.modal.classList.remove('active');
+        document.body.style.overflow = '';
     }
     
     loadSavedState() {
-        const state = JSON.parse(localStorage.getItem('bpDietApp') || '{}');
-        
-        if (state.bpType) {
-            this.elements.bpType.value = state.bpType;
-            this.handleBPTypeChange();
-            
-            if (state.timeSlot) {
-                this.elements.timeSlot.value = state.timeSlot;
-            }
+        const savedType = localStorage.getItem('bpType');
+        if (savedType && dietData[savedType]) {
+            this.selectBPType(savedType);
+            this.switchTab('home');
         }
     }
 }
 
-// Initialize app when DOM is ready
+// Initialize app
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => new BPDietApp());
 } else {

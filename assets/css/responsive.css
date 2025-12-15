@@ -1,63 +1,42 @@
-/* Mobile-first responsive styles */
-
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-    .app-header h1 {
-        font-size: var(--font-size-2xl);
-    }
-    
-    .main-content {
-        padding: var(--spacing-xl);
-    }
-    
-    .card {
-        padding: var(--spacing-xl);
-    }
-}
-
-/* Medium devices (tablets, 768px and up) */
+/* Tablet and larger screens */
 @media (min-width: 768px) {
-    html {
-        font-size: 18px;
+    .bp-cards {
+        grid-template-columns: repeat(2, 1fr);
     }
     
-    .app-header {
-        padding: var(--spacing-lg) var(--spacing-xl);
+    .modal.active {
+        align-items: center;
+        justify-content: center;
     }
     
-    .app-header h1 {
-        font-size: var(--font-size-3xl);
-    }
-    
-    .main-content {
-        padding: var(--spacing-2xl);
-    }
-    
-    .card, .diet-card, .rules-card {
-        padding: var(--spacing-2xl);
-    }
-    
-    .btn {
-        max-width: 400px;
-        margin: 0 auto;
+    .modal-content {
+        max-width: 500px;
+        border-radius: var(--radius-xl);
+        max-height: 90vh;
     }
 }
 
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    .form-group {
-        margin-bottom: var(--spacing-xl);
+/* Landscape orientation */
+@media (orientation: landscape) and (max-height: 600px) {
+    .top-bar {
+        height: 48px;
+    }
+    
+    :root {
+        --top-bar-height: 48px;
+        --bottom-nav-height: 56px;
+    }
+    
+    .bp-card {
+        padding: var(--spacing-md);
+    }
+    
+    .bp-card-icon {
+        font-size: 2rem;
     }
 }
 
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    .main-content {
-        max-width: 900px;
-    }
-}
-
-/* Reduced motion for accessibility */
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -65,33 +44,13 @@
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
     }
 }
 
-/* High contrast mode support */
+/* High contrast */
 @media (prefers-contrast: high) {
-    .btn-primary {
-        border: 2px solid currentColor;
-    }
-    
-    .form-select {
-        border-width: 3px;
-    }
-}
-
-/* Touch device optimizations */
-@media (hover: none) and (pointer: coarse) {
-    .btn {
-        min-height: 48px;
-    }
-    
-    .form-select {
-        min-height: 48px;
-    }
-    
-    .theme-toggle {
-        width: 48px;
-        height: 48px;
+    .bp-card,
+    .time-slot-card {
+        border-width: 2px;
     }
 }

@@ -1,85 +1,87 @@
-/* CSS Variables for theming and consistency */
 :root {
     /* Colors - Light Mode */
     --color-primary: #3498db;
+    --color-primary-light: #5dade2;
     --color-primary-dark: #2980b9;
-    --color-secondary: #2ecc71;
-    --color-danger: #e74c3c;
+    --color-high-bp: #e74c3c;
+    --color-low-bp: #3498db;
+    --color-success: #2ecc71;
     --color-warning: #f39c12;
     
-    --color-bg-primary: #f8f9fa;
-    --color-bg-secondary: #ffffff;
-    --color-bg-tertiary: #e9f6ff;
-    --color-bg-warning: #fff9e6;
+    --color-bg-app: #f5f7fa;
+    --color-bg-card: #ffffff;
+    --color-bg-secondary: #f8f9fa;
+    --color-bg-hover: #e9ecef;
     
-    --color-text-primary: #2c3e50;
-    --color-text-secondary: #5a6c7d;
-    --color-text-muted: #95a5a6;
+    --color-text-primary: #1a1a1a;
+    --color-text-secondary: #6c757d;
+    --color-text-muted: #adb5bd;
     
-    --color-border: #e1e8ed;
-    --color-shadow: rgba(0, 0, 0, 0.08);
+    --color-border: #dee2e6;
+    --color-divider: #e9ecef;
     
     /* Spacing */
-    --spacing-xs: 0.5rem;
-    --spacing-sm: 0.75rem;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
     --spacing-md: 1rem;
     --spacing-lg: 1.5rem;
     --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
     
     /* Typography */
     --font-family: 'Noto Sans Devanagari', sans-serif;
     --font-size-xs: 0.75rem;
     --font-size-sm: 0.875rem;
-    --font-size-base: 1rem;
+    --font-size-base: 0.9375rem;
     --font-size-lg: 1.125rem;
     --font-size-xl: 1.25rem;
-    --font-size-2xl: 1.5rem;
-    --font-size-3xl: 2rem;
     
     --font-weight-normal: 400;
     --font-weight-medium: 600;
     --font-weight-bold: 700;
     
-    --line-height-tight: 1.25;
-    --line-height-normal: 1.5;
-    --line-height-relaxed: 1.75;
-    
     /* Border Radius */
     --radius-sm: 0.5rem;
-    --radius-md: 0.75rem;
-    --radius-lg: 1rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.25rem;
     --radius-xl: 1.5rem;
     
     /* Shadows */
-    --shadow-sm: 0 1px 3px var(--color-shadow);
-    --shadow-md: 0 4px 12px var(--color-shadow);
-    --shadow-lg: 0 8px 24px var(--color-shadow);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-nav: 0 -2px 10px rgba(0, 0, 0, 0.08);
+    
+    /* Layout */
+    --top-bar-height: 56px;
+    --bottom-nav-height: 64px;
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
     
     /* Transitions */
-    --transition-fast: 150ms ease;
-    --transition-base: 250ms ease;
-    --transition-slow: 350ms ease;
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     
     /* Z-index */
-    --z-dropdown: 1000;
-    --z-sticky: 1020;
-    --z-fixed: 1030;
-    --z-modal: 1040;
-    --z-tooltip: 1050;
+    --z-modal: 1000;
+    --z-nav: 100;
+    --z-header: 90;
 }
 
 /* Dark Mode */
 [data-theme="dark"] {
-    --color-bg-primary: #1a1a2e;
-    --color-bg-secondary: #16213e;
-    --color-bg-tertiary: #0f3460;
-    --color-bg-warning: #3d3416;
+    --color-bg-app: #0d1117;
+    --color-bg-card: #161b22;
+    --color-bg-secondary: #1c2128;
+    --color-bg-hover: #21262d;
     
-    --color-text-primary: #eaeaea;
-    --color-text-secondary: #b8b8b8;
-    --color-text-muted: #7a7a7a;
+    --color-text-primary: #e6edf3;
+    --color-text-secondary: #8b949e;
+    --color-text-muted: #6e7681;
     
-    --color-border: #2d3748;
-    --color-shadow: rgba(0, 0, 0, 0.3);
+    --color-border: #30363d;
+    --color-divider: #21262d;
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.5);
+    --shadow-nav: 0 -2px 10px rgba(0, 0, 0, 0.4);
 }
