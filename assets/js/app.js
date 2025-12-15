@@ -8,6 +8,7 @@ class BPDietApp {
             bpCards: document.querySelectorAll('.bp-card'),
             timeSlots: document.getElementById('timeSlots'),
             dietTitle: document.getElementById('dietTitle'),
+            guideTitle: document.getElementById('guideTitle'),
             guideContent: document.getElementById('guideContent'),
             backBtn: document.getElementById('backBtn'),
             modal: document.getElementById('dietModal'),
@@ -104,6 +105,9 @@ class BPDietApp {
     
     updateGuideTab(type) {
         const data = dietData[type];
+        const title = type === 'high' ? '🔴 हाई बीपी - महत्वपूर्ण निर्देश' : '🔵 लो बीपी - महत्वपूर्ण निर्देश';
+        
+        document.getElementById('guideTitle').textContent = title;
         this.elements.guideContent.innerHTML = data.rules;
     }
     

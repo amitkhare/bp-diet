@@ -30,6 +30,18 @@
     margin: 0 auto;
 }
 
+.app-logo-title {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.app-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
 .app-title {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
@@ -409,4 +421,9 @@
     to {
         transform: translateY(0);
     }
+}
+
+/* Guide Header */
+.guide-header {
+    margin-bottom: var(--spacing-lg);
 }

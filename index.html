@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=no">
     <meta name="theme-color" content="#3498db">
     <meta name="description" content="बीपी डाइट चार्ट - हाई और लो ब्लड प्रेशर के लिए संपूर्ण आहार गाइड">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="mobile-web-app-capable" content="yes">
+    
     <title>बीपी डाइट चार्ट</title>
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="apple-touch-icon" href="logo.svg">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +29,10 @@
         <!-- Top Bar -->
         <header class="top-bar">
             <div class="top-bar-content">
-                <h1 class="app-title">बीपी डाइट चार्ट</h1>
+                <div class="app-logo-title">
+                    <img src="logo.svg" alt="BP Diet Logo" class="app-logo">
+                    <h1 class="app-title">बीपी डाइट चार्ट</h1>
+                </div>
                 <button id="themeToggle" class="icon-btn" aria-label="Toggle theme">
                     <span class="theme-icon">🌙</span>
                 </button>
@@ -64,7 +71,9 @@
 
             <!-- Guide Tab -->
             <div class="tab-content" id="guideTab">
-                <h2 class="section-title">महत्वपूर्ण निर्देश</h2>
+                <div class="guide-header">
+                    <h2 class="section-title" id="guideTitle">महत्वपूर्ण निर्देश</h2>
+                </div>
                 <div class="guide-content" id="guideContent">
                     <div class="empty-state">
                         <div class="empty-icon">📋</div>
