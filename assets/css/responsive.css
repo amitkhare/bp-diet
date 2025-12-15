@@ -1,9 +1,5 @@
 /* Tablet and larger screens */
 @media (min-width: 768px) {
-    .bp-cards {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
     .modal.active {
         align-items: center;
         justify-content: center;

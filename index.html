@@ -41,60 +41,66 @@
 
         <!-- Main Content Area -->
         <main class="content-area" id="contentArea">
-            <!-- Home Tab -->
-            <div class="tab-content active" id="homeTab">
-                <div class="bp-selector">
-                    <h2 class="section-title">अपना बीपी प्रकार चुनें</h2>
-                    <div class="bp-cards">
-                        <button class="bp-card" data-type="high">
-                            <div class="bp-card-icon">🔴</div>
-                            <div class="bp-card-title">हाई बीपी</div>
-                            <div class="bp-card-subtitle">High Blood Pressure</div>
-                        </button>
-                        <button class="bp-card" data-type="low">
-                            <div class="bp-card-icon">🔵</div>
-                            <div class="bp-card-title">लो बीपी</div>
-                            <div class="bp-card-subtitle">Low Blood Pressure</div>
-                        </button>
-                    </div>
+            <!-- High BP Page -->
+            <div class="page-content active" id="highBPPage">
+                <!-- Top Tabs -->
+                <div class="top-tabs">
+                    <button class="top-tab active" data-page="high" data-section="diet">
+                        <span class="top-tab-icon">🍽️</span>
+                        <span class="top-tab-label">डाइट चार्ट</span>
+                    </button>
+                    <button class="top-tab" data-page="high" data-section="guide">
+                        <span class="top-tab-icon">📖</span>
+                        <span class="top-tab-label">गाइड</span>
+                    </button>
+                </div>
+
+                <!-- High BP Diet Section -->
+                <div class="section-content active" id="highDiet">
+                    <div class="time-slots" id="highTimeSlots"></div>
+                </div>
+
+                <!-- High BP Guide Section -->
+                <div class="section-content" id="highGuide">
+                    <div class="guide-content" id="highGuideContent"></div>
                 </div>
             </div>
 
-            <!-- Diet Tab -->
-            <div class="tab-content" id="dietTab">
-                <div class="diet-header">
-                    <h2 class="section-title" id="dietTitle">डाइट चार्ट</h2>
+            <!-- Low BP Page -->
+            <div class="page-content" id="lowBPPage">
+                <!-- Top Tabs -->
+                <div class="top-tabs">
+                    <button class="top-tab active" data-page="low" data-section="diet">
+                        <span class="top-tab-icon">🍽️</span>
+                        <span class="top-tab-label">डाइट चार्ट</span>
+                    </button>
+                    <button class="top-tab" data-page="low" data-section="guide">
+                        <span class="top-tab-icon">📖</span>
+                        <span class="top-tab-label">गाइड</span>
+                    </button>
                 </div>
-                <div class="time-slots" id="timeSlots"></div>
-            </div>
 
-            <!-- Guide Tab -->
-            <div class="tab-content" id="guideTab">
-                <div class="guide-header">
-                    <h2 class="section-title" id="guideTitle">महत्वपूर्ण निर्देश</h2>
+                <!-- Low BP Diet Section -->
+                <div class="section-content active" id="lowDiet">
+                    <div class="time-slots" id="lowTimeSlots"></div>
                 </div>
-                <div class="guide-content" id="guideContent">
-                    <div class="empty-state">
-                        <div class="empty-icon">📋</div>
-                        <p>पहले बीपी प्रकार चुनें</p>
-                    </div>
+
+                <!-- Low BP Guide Section -->
+                <div class="section-content" id="lowGuide">
+                    <div class="guide-content" id="lowGuideContent"></div>
                 </div>
             </div>
         </main>
 
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
-            <button class="nav-item active" data-tab="home">
-                <span class="nav-icon">🏠</span>
-                <span class="nav-label">होम</span>
+            <button class="nav-item active" data-bp="high">
+                <span class="nav-icon">🔴</span>
+                <span class="nav-label">हाई बीपी</span>
             </button>
-            <button class="nav-item" data-tab="diet">
-                <span class="nav-icon">🍽️</span>
-                <span class="nav-label">डाइट</span>
-            </button>
-            <button class="nav-item" data-tab="guide">
-                <span class="nav-icon">📖</span>
-                <span class="nav-label">गाइड</span>
+            <button class="nav-item" data-bp="low">
+                <span class="nav-icon">🔵</span>
+                <span class="nav-label">लो बीपी</span>
             </button>
         </nav>
     </div>

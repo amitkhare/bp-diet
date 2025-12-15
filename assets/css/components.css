@@ -74,94 +74,80 @@
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
-    padding-top: var(--top-bar-height);
+    padding-top: 0px;
     padding-bottom: calc(60px + var(--safe-area-bottom) + var(--spacing-md));
 }
 
-.tab-content {
+/* Page Content */
+.page-content {
     display: none;
-    padding: var(--spacing-md);
-    max-width: 600px;
-    margin: 0 auto;
-    animation: fadeIn 0.3s ease;
+    height: 100%;
 }
 
-.tab-content.active {
+.page-content.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Top Tabs */
+.top-tabs {
+    display: flex;
+    background: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border);
+    position: sticky;
+    top: var(--top-bar-height);
+    z-index: 10;
+    box-shadow: var(--shadow-sm);
+}
+
+.top-tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    color: var(--color-text-secondary);
+    background: transparent;
+    border-bottom: 3px solid transparent;
+    transition: all var(--transition-fast);
+    font-weight: var(--font-weight-medium);
+}
+
+.top-tab.active {
+    color: var(--color-primary);
+    border-bottom-color: var(--color-primary);
+}
+
+.top-tab:active {
+    background: var(--color-bg-hover);
+}
+
+.top-tab-icon {
+    font-size: 1.25rem;
+}
+
+.top-tab-label {
+    font-size: var(--font-size-sm);
+}
+
+/* Section Content */
+.section-content {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+    max-width: 600px;
+    padding-top: 70px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.section-content.active {
     display: block;
 }
 
-/* BP Selector */
-.bp-selector {
-    padding: var(--spacing-md) 0;
-}
 
-.section-title {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-text-primary);
-}
-
-.bp-cards {
-    display: grid;
-    gap: var(--spacing-md);
-}
-
-.bp-card {
-    background: var(--color-bg-card);
-    border-radius: var(--radius-lg);
-    padding: var(--spacing-lg);
-    text-align: center;
-    box-shadow: var(--shadow-md);
-    transition: all var(--transition-fast);
-    border: 2px solid transparent;
-}
-
-.bp-card:active {
-    transform: scale(0.98);
-}
-
-.bp-card.selected {
-    border-color: var(--color-primary);
-    box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
-}
-
-.bp-card-icon {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-sm);
-}
-
-.bp-card-title {
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-bold);
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-xs);
-}
-
-.bp-card-subtitle {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-}
-
-/* Diet Tab */
-.diet-header {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-}
-
-.back-btn {
-    font-size: var(--font-size-lg);
-    color: var(--color-primary);
-    padding: var(--spacing-sm);
-    border-radius: var(--radius-sm);
-    transition: background var(--transition-fast);
-}
-
-.back-btn:active {
-    background: var(--color-bg-hover);
-}
 
 /* Time Slots */
 .time-slots {

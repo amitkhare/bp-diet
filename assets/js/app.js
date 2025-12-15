@@ -1,16 +1,12 @@
 // Main application logic
 class BPDietApp {
     constructor() {
-        this.currentBPType = null;
+        this.currentBP = 'high';
         this.elements = {
             navItems: document.querySelectorAll('.nav-item'),
-            tabs: document.querySelectorAll('.tab-content'),
-            bpCards: document.querySelectorAll('.bp-card'),
-            timeSlots: document.getElementById('timeSlots'),
-            dietTitle: document.getElementById('dietTitle'),
-            guideTitle: document.getElementById('guideTitle'),
-            guideContent: document.getElementById('guideContent'),
-            backBtn: document.getElementById('backBtn'),
+            pages: document.querySelectorAll('.page-content'),
+            topTabs: document.querySelectorAll('.top-tab'),
+            sections: document.querySelectorAll('.section-content'),
             modal: document.getElementById('dietModal'),
             modalBody: document.getElementById('modalBody'),
             modalClose: document.getElementById('modalClose')
@@ -21,72 +17,89 @@ class BPDietApp {
     
     init() {
         this.attachEventListeners();
+        this.loadContent();
         this.loadSavedState();
     }
     
     attachEventListeners() {
         // Bottom navigation
         this.elements.navItems.forEach(item => {
-            item.addEventListener('click', () => this.switchTab(item.dataset.tab));
+            item.addEventListener('click', () => this.switchBP(item.dataset.bp));
         });
         
-        // BP type selection
-        this.elements.bpCards.forEach(card => {
-            card.addEventListener('click', () => this.selectBPType(card.dataset.type));
+        // Top tabs
+        this.elements.topTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                this.switchSection(tab.dataset.page, tab.dataset.section);
+            });
         });
         
-        // Back button
-        this.elements.backBtn.addEventListener('click', () => this.switchTab('home'));
-        
-        // Modal close
+        // Modal
         this.elements.modalClose.addEventListener('click', () => this.closeModal());
         this.elements.modal.addEventListener('click', (e) => {
             if (e.target === this.elements.modal) this.closeModal();
         });
     }
     
-    switchTab(tabName) {
-        // Update navigation
+    switchBP(bpType) {
+        this.currentBP = bpType;
+        
+        // Update bottom nav
         this.elements.navItems.forEach(item => {
-            item.classList.toggle('active', item.dataset.tab === tabName);
+            item.classList.toggle('active', item.dataset.bp === bpType);
         });
         
-        // Update content
-        this.elements.tabs.forEach(tab => {
-            tab.classList.toggle('active', tab.id === `${tabName}Tab`);
+        // Update pages
+        this.elements.pages.forEach(page => {
+            page.classList.toggle('active', page.id === `${bpType}BPPage`);
         });
+        
+        // Scroll to top
+        document.getElementById('contentArea').scrollTop = 0;
+        
+        // Save state
+        localStorage.setItem('currentBP', bpType);
+    }
+    
+    switchSection(page, section) {
+        // Update top tabs for this page
+        this.elements.topTabs.forEach(tab => {
+            if (tab.dataset.page === page) {
+                tab.classList.toggle('active', tab.dataset.section === section);
+            }
+        });
+        
+        // Update sections for this page
+        const dietSection = document.getElementById(`${page}Diet`);
+        const guideSection = document.getElementById(`${page}Guide`);
+        
+        if (section === 'diet') {
+            dietSection.classList.add('active');
+            guideSection.classList.remove('active');
+        } else {
+            dietSection.classList.remove('active');
+            guideSection.classList.add('active');
+        }
         
         // Scroll to top
         document.getElementById('contentArea').scrollTop = 0;
     }
     
-    selectBPType(type) {
-        this.currentBPType = type;
+    loadContent() {
+        // Load High BP content
+        this.loadDietContent('high');
+        this.loadGuideContent('high');
         
-        // Update UI
-        this.elements.bpCards.forEach(card => {
-            card.classList.toggle('selected', card.dataset.type === type);
-        });
-        
-        // Update diet tab
-        this.updateDietTab(type);
-        
-        // Update guide tab
-        this.updateGuideTab(type);
-        
-        // Save state
-        localStorage.setItem('bpType', type);
-        
-        // Switch to diet tab
-        setTimeout(() => this.switchTab('diet'), 300);
+        // Load Low BP content
+        this.loadDietContent('low');
+        this.loadGuideContent('low');
     }
     
-    updateDietTab(type) {
+    loadDietContent(type) {
         const data = dietData[type];
-        const title = type === 'high' ? '🔴 हाई बीपी डाइट' : '🔵 लो बीपी डाइट';
+        const container = document.getElementById(`${type}TimeSlots`);
         
-        this.elements.dietTitle.textContent = title;
-        this.elements.timeSlots.innerHTML = '';
+        container.innerHTML = '';
         
         data.chart.forEach(item => {
             const card = document.createElement('button');
@@ -99,16 +112,14 @@ class BPDietApp {
                 <div class="time-slot-food">${item.food}</div>
             `;
             card.addEventListener('click', () => this.showDietDetail(item));
-            this.elements.timeSlots.appendChild(card);
+            container.appendChild(card);
         });
     }
     
-    updateGuideTab(type) {
+    loadGuideContent(type) {
         const data = dietData[type];
-        const title = type === 'high' ? '🔴 हाई बीपी - महत्वपूर्ण निर्देश' : '🔵 लो बीपी - महत्वपूर्ण निर्देश';
-        
-        document.getElementById('guideTitle').textContent = title;
-        this.elements.guideContent.innerHTML = data.rules;
+        const container = document.getElementById(`${type}GuideContent`);
+        container.innerHTML = data.rules;
     }
     
     showDietDetail(item) {
@@ -136,10 +147,9 @@ class BPDietApp {
     }
     
     loadSavedState() {
-        const savedType = localStorage.getItem('bpType');
-        if (savedType && dietData[savedType]) {
-            this.selectBPType(savedType);
-            this.switchTab('home');
+        const savedBP = localStorage.getItem('currentBP');
+        if (savedBP && (savedBP === 'high' || savedBP === 'low')) {
+            this.switchBP(savedBP);
         }
     }
 }
