@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="theme-color" content="#3498db">
+    <meta name="description" content="बीपी डाइट चार्ट - हाई और लो ब्लड प्रेशर के लिए संपूर्ण आहार गाइड">
+    <title>बीपी डाइट चार्ट ऐप</title>
+    
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/variables.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <h1>🩺 बीपी डाइट चार्ट</h1>
+            <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </header>
+
+        <main class="main-content">
+            <div class="card">
+                <div class="form-group">
+                    <label for="bpType" class="form-label">बीपी प्रकार चुनें</label>
+                    <select id="bpType" class="form-select">
+                        <option value="">-- चुनें --</option>
+                        <option value="high">🔴 हाई बीपी (High BP)</option>
+                        <option value="low">🔵 लो बीपी (Low BP)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="timeSlot" class="form-label">समय चुनें</label>
+                    <select id="timeSlot" class="form-select" disabled>
+                        <option value="">-- पहले बीपी प्रकार चुनें --</option>
+                    </select>
+                </div>
+                
+                <button id="showDiet" class="btn btn-primary" disabled>
+                    <span>डाइट दिखाएं</span>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+
+            <div id="dietContent" class="diet-card" style="display: none;"></div>
+            <div id="rulesContent" class="rules-card"></div>
+        </main>
+
+        <footer class="app-footer">
+            <p>स्वास्थ्य सलाह के लिए डॉक्टर से परामर्श करें</p>
+        </footer>
+    </div>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/theme.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* Mobile-first responsive styles */
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .app-header h1 {
+        font-size: var(--font-size-2xl);
+    }
+    
+    .main-content {
+        padding: var(--spacing-xl);
+    }
+    
+    .card {
+        padding: var(--spacing-xl);
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    html {
+        font-size: 18px;
+    }
+    
+    .app-header {
+        padding: var(--spacing-lg) var(--spacing-xl);
+    }
+    
+    .app-header h1 {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .main-content {
+        padding: var(--spacing-2xl);
+    }
+    
+    .card, .diet-card, .rules-card {
+        padding: var(--spacing-2xl);
+    }
+    
+    .btn {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .form-group {
+        margin-bottom: var(--spacing-xl);
+    }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    .main-content {
+        max-width: 900px;
+    }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .btn-primary {
+        border: 2px solid currentColor;
+    }
+    
+    .form-select {
+        border-width: 3px;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 48px;
+    }
+    
+    .form-select {
+        min-height: 48px;
+    }
+    
+    .theme-toggle {
+        width: 48px;
+        height: 48px;
+    }
+}
