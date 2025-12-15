@@ -53,7 +53,6 @@
     
     /* Layout */
     --top-bar-height: 56px;
-    --bottom-nav-height: 64px;
     --safe-area-bottom: env(safe-area-inset-bottom, 0px);
     
     /* Transitions */

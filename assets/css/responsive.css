@@ -24,7 +24,19 @@
     
     :root {
         --top-bar-height: 48px;
-        --bottom-nav-height: 56px;
+    }
+    
+    .nav-item {
+        min-height: 52px;
+        padding: 0.5rem 0.5rem;
+    }
+    
+    .nav-icon {
+        font-size: 1.25rem;
+    }
+    
+    .nav-label {
+        font-size: 0.625rem;
     }
     
     .bp-card {
